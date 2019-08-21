@@ -23,8 +23,8 @@ public class PlatformController2DSimple : MonoBehaviour
     SpriteRenderer[] allSpriteRenders;
     CircleCollider2D collider2d;
 
-    bool grounded = false;
-    RaycastHit2D hit2D;
+    RaycastHit2D grounded;
+    bool isGrounded;
     bool jump = false;
     float horizontalMovement;
     //bool jumpButtonPressed = false;
@@ -33,6 +33,8 @@ public class PlatformController2DSimple : MonoBehaviour
     Vector2 restartPosition;
 
     GameManager gameManger;
+
+    float raycastRadius = 0.1f;
 
     private void OnEnable()
     {
@@ -62,17 +64,9 @@ public class PlatformController2DSimple : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-        hit2D = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-
+        //grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
+        isGrounded = Physics2D.OverlapCircle(groundCheck.position, raycastRadius, 1 << LayerMask.NameToLayer("Ground"));
         horizontalMovement = Input.GetAxis("Horizontal");
-
-        if (Input.GetButtonDown("Jump") && hit2D) //(Input.GetButtonDown("Jump") && grounded == true)
-        {
-            rb2d.velocity = Vector2.up * jumpForce;
-
-            audioSource.PlayOneShot(jumpUpSound);
-        }
 
         // Flip //
         if (horizontalMovement < 0f && facingRight == false)
@@ -81,31 +75,23 @@ public class PlatformController2DSimple : MonoBehaviour
             FlipPlayer();
 
 
-        if(Input.GetKeyDown(KeyCode.DownArrow) && hit2D) //(Input.GetKeyDown(KeyCode.DownArrow) && grounded)
+        if (!isGrounded)
+            return;
+
+        if(Input.GetKeyDown(KeyCode.DownArrow))
         {
-            //RaycastHit2D hit2D = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
+            PlatformEffector2D pf2D = grounded.transform.GetComponent<PlatformEffector2D>();
 
-            PlatformEffector2D pf2D = hit2D.transform.GetComponent<PlatformEffector2D>();
-
-            if (pf2D)
+            if(pf2D)
             {
-                StartCoroutine(StepDownFromPlatform(pf2D));
+                //pf2D.surfaceArc *= -1f;
                 audioSource.PlayOneShot(jumpDownSound);
+                StartCoroutine(StepDownFromPlatform(pf2D));
             }
-
-            //if(hit2D)
-            //{
-            //    PlatformEffector2D pf2D = hit2D.transform.GetComponent<PlatformEffector2D>();
-
-            //    if (pf2D)
-            //    {
-            //        StartCoroutine(StepDownFromPlatform(pf2D));
-            //        audioSource.PlayOneShot(jumpDownSound);
-            //    }
-            //}
         }
 
-	}
+
+    }
 
 
 
@@ -117,6 +103,13 @@ public class PlatformController2DSimple : MonoBehaviour
         
         rb2d.velocity = new Vector2(horizontalMovement * movementForce, rb2d.velocity.y);
 
+        if (Input.GetButtonDown("Jump") && isGrounded) //(Input.GetButtonDown("Jump") && grounded == true)
+        {
+            rb2d.velocity = Vector2.up * jumpForce;
+
+            audioSource.PlayOneShot(jumpUpSound);
+        }
+
         if (rb2d.velocity.y < 0f)
         {
             rb2d.velocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
@@ -126,10 +119,10 @@ public class PlatformController2DSimple : MonoBehaviour
             rb2d.velocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
         }
 
-        if (hit2D && hit2D.collider.tag == "Platform")
+        if (grounded && grounded.collider.tag == "Platform")
         {
-            //if(hit2D.rigidbody.velocity.y == 0)
-                rb2d.velocity += hit2D.rigidbody.velocity;
+
+            rb2d.velocity += grounded.rigidbody.velocity;
         }
     }
 
@@ -145,10 +138,22 @@ public class PlatformController2DSimple : MonoBehaviour
     IEnumerator StepDownFromPlatform(PlatformEffector2D _pf2D)
     {
         float storredSurfaceArc = _pf2D.surfaceArc;
+        
         _pf2D.surfaceArc = storredSurfaceArc * -1;
-        yield return new WaitForSeconds(0.5f);
+
+        int exitCount = 0;
+
+        while(isGrounded || exitCount > 1000)
+        {
+            exitCount++;
+            yield return new WaitForEndOfFrame();
+        }
+
+        Debug.Log(isGrounded + " -- " + exitCount);
         _pf2D.surfaceArc = storredSurfaceArc;
     }
+
+
 
     void EnemyBase_OnHitByEnemy(Vector3 hitPosition)
     {
@@ -175,6 +180,8 @@ public class PlatformController2DSimple : MonoBehaviour
 
         get { return restartPosition; }
     }
+
+    public RaycastHit2D Grounded { get => grounded; set => grounded = value; }
 
     IEnumerator PlayerLostLife()
     {
@@ -209,10 +216,16 @@ public class PlatformController2DSimple : MonoBehaviour
 
     private void OnDrawGizmos()
     {
+        Gizmos.color = isGrounded ? Gizmos.color = Color.green : Gizmos.color = Color.red;
+
+       Gizmos.DrawWireSphere(groundCheck.position, raycastRadius);
+
         if (!rb2d)
             return;
                 
         Gizmos.color = Color.magenta;
         Gizmos.DrawRay(transform.position, new Vector3(rb2d.velocity.x, rb2d.velocity.y, 0f));
+
+        
     }
 }
