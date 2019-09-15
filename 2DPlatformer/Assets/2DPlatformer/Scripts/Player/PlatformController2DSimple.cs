@@ -7,8 +7,7 @@ public class PlatformController2DSimple : MonoBehaviour
 {
     public float movementForce = 3f;
     public float jumpForce = 4f;
-    //public float jumpTime = 2f;
-
+    
     public float fallMultiplier = 3f;
     public float lowJumpMultiplier = 2f;
     public Transform groundCheck;
@@ -21,14 +20,14 @@ public class PlatformController2DSimple : MonoBehaviour
     Rigidbody2D rb2d;
     AudioSource audioSource;
     SpriteRenderer[] allSpriteRenders;
-    CircleCollider2D collider2d;
+    BoxCollider2D collider2d;
 
-    RaycastHit2D grounded;
+
     bool isGrounded;
-    bool jump = false;
+    Collider2D groundCollider;
+
     float horizontalMovement;
-    //bool jumpButtonPressed = false;
-    //bool jumping = false;
+    
     bool facingRight = false;
     Vector2 restartPosition;
 
@@ -53,20 +52,22 @@ public class PlatformController2DSimple : MonoBehaviour
         rb2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         allSpriteRenders = GetComponentsInChildren<SpriteRenderer>();
-        collider2d = GetComponent<CircleCollider2D>();
+        collider2d = GetComponent<BoxCollider2D>();
         // Set the restart position to match the players start position 
         RestartPosition = transform.position;
 
         gameManger = FindObjectOfType<GameManager>();
-        gameManger.UpdatePlayerLives(numberOfPlayerLives);
+        if(gameManger)
+            gameManger.UpdatePlayerLives(numberOfPlayerLives);
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        //grounded = Physics2D.Linecast(transform.position, groundCheck.position, 1 << LayerMask.NameToLayer("Ground"));
-        isGrounded = Physics2D.OverlapCircle(groundCheck.position, raycastRadius, 1 << LayerMask.NameToLayer("Ground"));
-        horizontalMovement = Input.GetAxis("Horizontal");
+        groundCollider = Physics2D.OverlapCircle(groundCheck.position, raycastRadius, 1 << LayerMask.NameToLayer("Ground"));
+        isGrounded = (bool)groundCollider;
+        
+        horizontalMovement = Input.GetAxisRaw("Horizontal");
 
         // Flip //
         if (horizontalMovement < 0f && facingRight == false)
@@ -74,19 +75,17 @@ public class PlatformController2DSimple : MonoBehaviour
         else if (horizontalMovement > 0f && facingRight == true)
             FlipPlayer();
 
+    
 
-        if (!isGrounded)
-            return;
-
-        if(Input.GetKeyDown(KeyCode.DownArrow))
+        if(Input.GetKeyDown(KeyCode.DownArrow) && isGrounded)
         {
-            PlatformEffector2D pf2D = grounded.transform.GetComponent<PlatformEffector2D>();
+            PlatformEffector2D platformEffector2D = groundCollider.transform.GetComponent<PlatformEffector2D>();
 
-            if(pf2D)
+            if(platformEffector2D)
             {
                 //pf2D.surfaceArc *= -1f;
                 audioSource.PlayOneShot(jumpDownSound);
-                StartCoroutine(StepDownFromPlatform(pf2D));
+                StartCoroutine(StepDownFromPlatform(platformEffector2D));
             }
         }
 
@@ -101,28 +100,30 @@ public class PlatformController2DSimple : MonoBehaviour
         if (rb2d.bodyType != RigidbodyType2D.Dynamic)
             return;
         
-        rb2d.velocity = new Vector2(horizontalMovement * movementForce, rb2d.velocity.y);
+        rb2d.velocity = new Vector2(horizontalMovement * movementForce, rb2d.velocity.y); 
 
-        if (Input.GetButtonDown("Jump") && isGrounded) //(Input.GetButtonDown("Jump") && grounded == true)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
             rb2d.velocity = Vector2.up * jumpForce;
 
             audioSource.PlayOneShot(jumpUpSound);
         }
 
+        // The player is falling //
         if (rb2d.velocity.y < 0f)
         {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * fallMultiplier * Time.deltaTime;
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.fixedDeltaTime;
         }
+        // Check for quick release jump //
         else if (rb2d.velocity.y > 0f && !Input.GetButton("Jump"))
         {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * lowJumpMultiplier * Time.deltaTime;
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
         }
 
-        if (grounded && grounded.collider.tag == "Platform")
+        if (isGrounded && groundCollider.CompareTag("Platform"))
         {
 
-            rb2d.velocity += grounded.rigidbody.velocity;
+            rb2d.velocity += groundCollider.attachedRigidbody.velocity;
         }
     }
 
@@ -164,7 +165,7 @@ public class PlatformController2DSimple : MonoBehaviour
 
         gameManger.UpdatePlayerLives(numberOfPlayerLives);
 
-        if(!isPlayerDead())
+        if(!IsPlayerDead())
         {
             StartCoroutine(PlayerLostLife());
         }
@@ -181,7 +182,7 @@ public class PlatformController2DSimple : MonoBehaviour
         get { return restartPosition; }
     }
 
-    public RaycastHit2D Grounded { get => grounded; set => grounded = value; }
+    //public RaycastHit2D Grounded { get => grounded; set => grounded = value; }
 
     IEnumerator PlayerLostLife()
     {
@@ -206,7 +207,7 @@ public class PlatformController2DSimple : MonoBehaviour
         rb2d.bodyType = RigidbodyType2D.Dynamic;
     }
 
-    public bool isPlayerDead()
+    public bool IsPlayerDead()
     {
         if (numberOfPlayerLives > 0)
             return false;
@@ -218,7 +219,8 @@ public class PlatformController2DSimple : MonoBehaviour
     {
         Gizmos.color = isGrounded ? Gizmos.color = Color.green : Gizmos.color = Color.red;
 
-       Gizmos.DrawWireSphere(groundCheck.position, raycastRadius);
+        if(groundCheck)
+            Gizmos.DrawWireSphere(groundCheck.position, raycastRadius);
 
         if (!rb2d)
             return;

@@ -10,7 +10,7 @@ public class Teleporter : MonoBehaviour {
 
 	void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.DownArrow))
+        if(collision.CompareTag("Player") && Input.GetKeyDown(KeyCode.E))
         {
             collision.transform.position = target.position;
         }

@@ -1,25 +1,28 @@
 fileFormatVersion: 2
-guid: 831c056976e4941c78e10c769912394a
+guid: 3678a2aab1376423c8492bb2228f178e
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 21300000
-    second: Tiles platforms_0
+      213: -6354822565745579390
+    second: Rainmaker_0
   - first:
-      213: 21300002
-    second: Tiles platforms_1
+      213: -6736732951316256331
+    second: Rainmaker_1
   - first:
-      213: 21300004
-    second: Tiles platforms_2
+      213: 1819645449437485850
+    second: Rainmaker_2
   - first:
-      213: 21300006
-    second: Tiles platforms_3
+      213: 7909264100389280749
+    second: Rainmaker_3
   - first:
-      213: 21300008
-    second: Tiles platforms_4
+      213: 3824076118549318226
+    second: Rainmaker_4
   - first:
-      213: 21300010
-    second: Tiles platforms_5
+      213: -408790427562436911
+    second: Rainmaker_5
+  - first:
+      213: 324574374583968085
+    second: Rainmaker_6
   externalObjects: {}
   serializedVersion: 10
   mipmaps:
@@ -49,7 +52,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: -1
     aniso: -1
     mipBias: -100
     wrapU: 1
@@ -63,7 +66,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 32
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -116,118 +119,34 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Tiles platforms_0
+      name: Rainmaker_0
       rect:
         serializedVersion: 2
-        x: 928
-        y: 992
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+        x: 2
+        y: 74
+        width: 37
+        height: 14
+      alignment: 9
+      pivot: {x: 0.9853834, y: 0.63994217}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 0b2b9d9a7abed41f0ababcbdb9e29c33
-      internalID: 21300000
+      spriteID: 9e77cb05045d846129a3a2c7654fc3dc
+      internalID: -6354822565745579390
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Tiles platforms_1
+      name: Rainmaker_1
       rect:
         serializedVersion: 2
-        x: 992
-        y: 992
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f365fb53ec6a24e0e9815066fe0b47bd
-      internalID: 21300002
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles platforms_2
-      rect:
-        serializedVersion: 2
-        x: 1056
-        y: 992
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 68c99f80c1dc145b5ba6fb1634ce9015
-      internalID: 21300004
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles platforms_3
-      rect:
-        serializedVersion: 2
-        x: 928
-        y: 960
-        width: 32
-        height: 16
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 053144ecfb4a545c39c5aef745201a0f
-      internalID: 21300006
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles platforms_4
-      rect:
-        serializedVersion: 2
-        x: 993
-        y: 960
-        width: 13
+        x: 43
+        y: 85
+        width: 12
         height: 11
-      alignment: 7
-      pivot: {x: 0.5, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 33f34eac6451f4c97b65567e91f17409
-      internalID: 21300008
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Tiles platforms_5
-      rect:
-        serializedVersion: 2
-        x: 1056
-        y: 928
-        width: 32
-        height: 32
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -235,8 +154,113 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7f217ddb4bfd740b996eca50a89c3b12
-      internalID: 21300010
+      spriteID: c62d9de7871f84cd4b483b7bd42bd728
+      internalID: -6736732951316256331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rainmaker_2
+      rect:
+        serializedVersion: 2
+        x: 73
+        y: 85
+        width: 12
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5b82e5e6f74848c990cddad0d91273b
+      internalID: 1819645449437485850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rainmaker_3
+      rect:
+        serializedVersion: 2
+        x: 87
+        y: 78
+        width: 37
+        height: 14
+      alignment: 9
+      pivot: {x: 0.026383683, y: 0.593295}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c0c6eba4facd478e818fe6c941fa32b
+      internalID: 7909264100389280749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rainmaker_4
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 18
+        height: 31
+      alignment: 9
+      pivot: {x: 0.9414212, y: 0.9704852}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d6016a1cde304227837beb7e560a2e0
+      internalID: 3824076118549318226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rainmaker_5
+      rect:
+        serializedVersion: 2
+        x: 25
+        y: 0
+        width: 77
+        height: 77
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d46daf4bb72849659700ae4f6089e0e
+      internalID: -408790427562436911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Rainmaker_6
+      rect:
+        serializedVersion: 2
+        x: 109
+        y: 5
+        width: 19
+        height: 31
+      alignment: 9
+      pivot: {x: 0.0646266, y: 0.9599518}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da2bf0f5f546041669ca0d67eaeccd29
+      internalID: 324574374583968085
       vertices: []
       indices: 
       edges: []
@@ -244,7 +268,7 @@ TextureImporter:
     outline: []
     physicsShape: []
     bones: []
-    spriteID: ceb8a7d99dcd0470e83c0411f69f0421
+    spriteID: 5e97eb03825dee720800000000000000
     internalID: 0
     vertices: []
     indices: 

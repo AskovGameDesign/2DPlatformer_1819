@@ -50,7 +50,7 @@ public class GameManager : MonoBehaviour {
     }
     void EnemyBase_OnHitByEnemy(Vector3 hitPosition)
     {
-        if (thePlayer.GetComponent<PlatformController2DSimple>().isPlayerDead())
+        if (thePlayer.GetComponent<PlatformController2DSimple>().IsPlayerDead())
             StartCoroutine(RestartGame());
     }
 
