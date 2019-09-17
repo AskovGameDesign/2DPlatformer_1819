@@ -18,6 +18,8 @@ public class DrawGroundNormal : MonoBehaviour
         
     }
 
+    
+
     // Update is called once per frame
     void Update()
     {
@@ -26,8 +28,6 @@ public class DrawGroundNormal : MonoBehaviour
         hit2d = Physics2D.Linecast(transform.position, worldspacePoint, groundcheckLayerMask);
 
         hitNormal = hit2d.normal.normalized;
-
-        
 
         //Debug.DrawRay(transform.position, hit2d.normal.normalized * 3f, Color.yellow);
         Debug.DrawLine(transform.position, worldspacePoint, Color.magenta);

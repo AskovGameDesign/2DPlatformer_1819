@@ -12,7 +12,7 @@ public class PlayerControl_HighJump : MonoBehaviour
     public LayerMask groundLayers;
 
     private Rigidbody2D rb2d;
-    private float moveInput;
+    private float movement;
     private bool isGrounded;
     private bool isJumping;
     public float jumpTime;
@@ -27,7 +27,9 @@ public class PlayerControl_HighJump : MonoBehaviour
     {
         isGrounded = Physics2D.OverlapCircle(groundCheckPosition.position, groundCheckRadius, groundLayers);
 
-        if(Input.GetKeyDown(KeyCode.Space) && isGrounded)
+        movement = Input.GetAxisRaw("Horizontal");
+
+        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb2d.velocity = Vector2.up * jumpForce;
             isJumping = true;
@@ -54,8 +56,8 @@ public class PlayerControl_HighJump : MonoBehaviour
 
     void FixedUpdate()
     {
-        moveInput = Input.GetAxisRaw("Horizontal");
-        rb2d.velocity = new Vector2(moveInput * speed, rb2d.velocity.y);
+        
+        rb2d.velocity = new Vector2(movement * speed, rb2d.velocity.y);
     }
 
     private void OnDrawGizmos()
