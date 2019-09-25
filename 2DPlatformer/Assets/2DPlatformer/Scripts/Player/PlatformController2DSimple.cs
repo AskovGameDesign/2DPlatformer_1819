@@ -120,6 +120,7 @@ public class PlatformController2DSimple : MonoBehaviour
             rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
         }
 
+
         if (isGrounded && groundCollider.CompareTag("Platform"))
         {
 
