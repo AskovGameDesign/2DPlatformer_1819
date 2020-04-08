@@ -57,6 +57,7 @@ public class PlatformController2DSimple : MonoBehaviour
         RestartPosition = transform.position;
 
         gameManger = FindObjectOfType<GameManager>();
+
         if(gameManger)
             gameManger.UpdatePlayerLives(numberOfPlayerLives);
 	}
@@ -69,7 +70,7 @@ public class PlatformController2DSimple : MonoBehaviour
         
         horizontalMovement = Input.GetAxisRaw("Horizontal");
 
-        // Flip //
+        // Flip the player based on walking direction //
         if (horizontalMovement < 0f && facingRight == false)
             FlipPlayer();
         else if (horizontalMovement > 0f && facingRight == true)
@@ -89,7 +90,24 @@ public class PlatformController2DSimple : MonoBehaviour
             }
         }
 
+        // Jump code moved away from the fixedupdate function //
+        if (Input.GetButtonDown("Jump") && isGrounded)
+        {
+            rb2d.velocity = Vector2.up * jumpForce;
 
+            audioSource.PlayOneShot(jumpUpSound);
+        }
+
+        // The player is falling //
+        if (rb2d.velocity.y < 0f)
+        {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.deltaTime;
+        }
+        // Check for quick release jump //
+        else if (rb2d.velocity.y > 0f && !Input.GetButton("Jump"))
+        {
+            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1f) * Time.deltaTime;
+        }
     }
 
 
@@ -101,25 +119,6 @@ public class PlatformController2DSimple : MonoBehaviour
             return;
         
         rb2d.velocity = new Vector2(horizontalMovement * movementForce, rb2d.velocity.y); 
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            rb2d.velocity = Vector2.up * jumpForce;
-
-            audioSource.PlayOneShot(jumpUpSound);
-        }
-
-        // The player is falling //
-        if (rb2d.velocity.y < 0f)
-        {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1f) * Time.fixedDeltaTime;
-        }
-        // Check for quick release jump //
-        else if (rb2d.velocity.y > 0f && !Input.GetButton("Jump"))
-        {
-            rb2d.velocity += Vector2.up * Physics2D.gravity.y * (lowJumpMultiplier - 1f) * Time.fixedDeltaTime;
-        }
-
 
         if (isGrounded && groundCollider.CompareTag("Platform"))
         {
@@ -154,7 +153,6 @@ public class PlatformController2DSimple : MonoBehaviour
         Debug.Log(isGrounded + " -- " + exitCount);
         _pf2D.surfaceArc = storredSurfaceArc;
     }
-
 
 
     void EnemyBase_OnHitByEnemy(Vector3 hitPosition)
