@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour {
 
     GameObject thePlayer;
 
+    public static GameManager Instance { get; set; }
+
     private void OnEnable()
     {
         EnemyBase.OnHitByEnemy += EnemyBase_OnHitByEnemy;
@@ -27,6 +29,11 @@ public class GameManager : MonoBehaviour {
     // Use this for initialization
     void Awake () 
     {
+        if (Instance == null)
+            Instance = this;
+        else
+            Destroy(this.gameObject);
+
         thePlayer = GameObject.FindGameObjectWithTag("Player");
 
 		if (gameOverText)

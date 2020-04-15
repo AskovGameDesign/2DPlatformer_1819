@@ -36,6 +36,19 @@ public class MovingPlatform : MonoBehaviour {
                 flipDirections[i].movingPlatformScript = this;
             }
         }
+
+        if (movementDirection == MovementDirection.horisontal)
+        {
+            rb2d.constraints = RigidbodyConstraints2D.None;
+            rb2d.constraints = RigidbodyConstraints2D.FreezePositionY | RigidbodyConstraints2D.FreezeRotation;
+            
+        }
+        else if(movementDirection == MovementDirection.vertical)
+        {
+            rb2d.constraints = RigidbodyConstraints2D.None;
+            rb2d.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
+        }
+            
     }
 
     // Update is called once per frame

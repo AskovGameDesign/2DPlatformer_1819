@@ -11,29 +11,27 @@ public class PlatformController2DSimple : MonoBehaviour
     public float fallMultiplier = 3f;
     public float lowJumpMultiplier = 2f;
     public Transform groundCheck;
+    [SerializeField] private LayerMask groundLayer;
+    [SerializeField] private Vector2 groundCheckBox = new Vector2(0.6f, 0.2f);
 
     public GameObject playerDiedPrefab;
     public int numberOfPlayerLives = 3;
     public AudioClip jumpUpSound;
     public AudioClip jumpDownSound;
 
+
+    #region Private variables
     Rigidbody2D rb2d;
     AudioSource audioSource;
-    SpriteRenderer[] allSpriteRenders;
-    BoxCollider2D collider2d;
-
+    BoxCollider2D playerCollider;
 
     bool isGrounded;
     Collider2D groundCollider;
-
+    SpriteRenderer[] allSpriteRenders;
     float horizontalMovement;
-    
     bool facingRight = false;
     Vector2 restartPosition;
-
-    GameManager gameManger;
-
-    float raycastRadius = 0.1f;
+    #endregion
 
     private void OnEnable()
     {
@@ -47,25 +45,22 @@ public class PlatformController2DSimple : MonoBehaviour
 		EnemyBase.OnHitByEnemy -= EnemyBase_OnHitByEnemy;
     }
     // Use this for initialization
-    void Awake () 
+    void Start () 
     {
         rb2d = GetComponent<Rigidbody2D>();
         audioSource = GetComponent<AudioSource>();
         allSpriteRenders = GetComponentsInChildren<SpriteRenderer>();
-        collider2d = GetComponent<BoxCollider2D>();
+        playerCollider = GetComponent<BoxCollider2D>();
         // Set the restart position to match the players start position 
         RestartPosition = transform.position;
-
-        gameManger = FindObjectOfType<GameManager>();
-
-        if(gameManger)
-            gameManger.UpdatePlayerLives(numberOfPlayerLives);
+       
+        GameManager.Instance.UpdatePlayerLives(numberOfPlayerLives);
 	}
 	
 	// Update is called once per frame
 	void Update () 
     {
-        groundCollider = Physics2D.OverlapCircle(groundCheck.position, raycastRadius, 1 << LayerMask.NameToLayer("Ground"));
+        groundCollider = Physics2D.OverlapBox(groundCheck.position, groundCheckBox, 0f, groundLayer); //1 << LayerMask.NameToLayer("Ground")
         isGrounded = (bool)groundCollider;
         
         horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -162,7 +157,7 @@ public class PlatformController2DSimple : MonoBehaviour
 
         numberOfPlayerLives -= 1;
 
-        gameManger.UpdatePlayerLives(numberOfPlayerLives);
+        GameManager.Instance.UpdatePlayerLives(numberOfPlayerLives);
 
         if(!IsPlayerDead())
         {
@@ -181,7 +176,6 @@ public class PlatformController2DSimple : MonoBehaviour
         get { return restartPosition; }
     }
 
-    //public RaycastHit2D Grounded { get => grounded; set => grounded = value; }
 
     IEnumerator PlayerLostLife()
     {
@@ -189,7 +183,7 @@ public class PlatformController2DSimple : MonoBehaviour
         {
             allSpriteRenders[i].enabled = false;
         }
-        collider2d.enabled = false;
+        playerCollider.enabled = false;
 
         rb2d.bodyType = RigidbodyType2D.Static;
 
@@ -201,7 +195,7 @@ public class PlatformController2DSimple : MonoBehaviour
 		{
 			allSpriteRenders[i].enabled = true;
 		}
-		collider2d.enabled = true;
+		playerCollider.enabled = true;
 
         rb2d.bodyType = RigidbodyType2D.Dynamic;
     }
@@ -216,17 +210,14 @@ public class PlatformController2DSimple : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        Gizmos.color = isGrounded ? Gizmos.color = Color.green : Gizmos.color = Color.red;
-
-        if(groundCheck)
-            Gizmos.DrawWireSphere(groundCheck.position, raycastRadius);
-
-        if (!rb2d)
+        if (!this.isActiveAndEnabled)
             return;
-                
-        Gizmos.color = Color.magenta;
-        Gizmos.DrawRay(transform.position, new Vector3(rb2d.velocity.x, rb2d.velocity.y, 0f));
 
-        
+        //Gizmos.color = isGrounded ? Gizmos.color = Color.green : Gizmos.color = Color.red;
+        Color gc = isGrounded ? gc = Color.green : gc = Color.red;
+        gc.a = 0.5f;
+        Gizmos.color = gc;
+        Gizmos.DrawCube(groundCheck.position, groundCheckBox);
+
     }
 }
