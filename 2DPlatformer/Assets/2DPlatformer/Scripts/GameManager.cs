@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour {
     public Text gameOverText;
 
     int totalPoints = 0;
-
+    Vector2 restartPosition;
     GameObject thePlayer;
 
     public static GameManager Instance { get; set; }
@@ -35,11 +35,13 @@ public class GameManager : MonoBehaviour {
             Destroy(this.gameObject);
 
         thePlayer = GameObject.FindGameObjectWithTag("Player");
+        RestartPosition = thePlayer.transform.position;
 
 		if (gameOverText)
 		{
             gameOverText.enabled = false;
 		}
+
 	}
 	
 	
@@ -57,10 +59,16 @@ public class GameManager : MonoBehaviour {
     }
     void EnemyBase_OnHitByEnemy(Vector3 hitPosition)
     {
-        if (thePlayer.GetComponent<PlatformController2DSimple>().IsPlayerDead())
+        if (thePlayer.GetComponent<PlatformController>().IsPlayerDead())
             StartCoroutine(RestartGame());
     }
 
+    public Vector2 RestartPosition
+    {
+        set { restartPosition = value; }
+
+        get { return restartPosition; }
+    }
 
 
     IEnumerator RestartGame()
