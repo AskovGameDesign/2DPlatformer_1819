@@ -6,7 +6,6 @@ public class PickUp : MonoBehaviour {
 
     public bool flipAnimation = true;
 
-
     int points = 1;
 
     float flipTimer = 0f;

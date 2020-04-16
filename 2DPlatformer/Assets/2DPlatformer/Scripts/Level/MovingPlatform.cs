@@ -76,14 +76,4 @@ public class MovingPlatform : MonoBehaviour {
         }
     }
 
-
-    //private void OnCollisionStay2D(Collision2D collision)
-    //{
-    //    if (collision.collider.tag == "Player")
-    //    {
-    //        collision.gameObject.GetComponent<Rigidbody2D>().velocity += rb2d.velocity;
-    //        Debug.Log("PLAYER " + collision.gameObject.GetComponent<Rigidbody2D>().velocity);
-    //    }
-    //}
-
 }

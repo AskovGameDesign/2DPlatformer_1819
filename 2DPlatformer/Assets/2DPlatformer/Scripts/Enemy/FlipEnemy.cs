@@ -12,8 +12,6 @@ public class FlipEnemy : MonoBehaviour
 	void Start()
 	{
         rb2d = GetComponent<Rigidbody2D>();
-
-
     }
 
 	// Update is called once per frame
@@ -24,9 +22,6 @@ public class FlipEnemy : MonoBehaviour
             StartCoroutine(FlipTheEnemy(force, 1f, -180f));
         }
 	}
-
-
-
 
     IEnumerator FlipTheEnemy(float _force, float _flipDuration, float _flipTargetAngle)
     {
@@ -44,11 +39,7 @@ public class FlipEnemy : MonoBehaviour
 
             flipAngle = Mathf.Lerp(0f, _flipTargetAngle, t);
 
-            //transform.eulerAngles = new Vector3(0f, 0f, flipAngle);
-
             rb2d.rotation = flipAngle;
-
-            //Debug.Log(t + " - " + flipAngle);
 
             yield return null;
         }

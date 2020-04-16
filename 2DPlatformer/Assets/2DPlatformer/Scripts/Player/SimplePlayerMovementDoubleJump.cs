@@ -36,7 +36,7 @@ public class SimplePlayerMovementDoubleJump : MonoBehaviour
             jumpCount+=1;
         }
 
-        // Reset jumpcount when we are atading on the ground
+        // Reset jumpcount when we are standing on the ground
         if (isGrounded && rb2d.velocity.y <= 0f)
         {
             jumpCount = 0;

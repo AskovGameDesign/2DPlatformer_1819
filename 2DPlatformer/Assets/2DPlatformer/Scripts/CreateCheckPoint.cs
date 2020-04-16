@@ -14,8 +14,6 @@ public class CreateCheckPoint : MonoBehaviour
         // Check if it is the Player that entered the trigger
         if(collision.CompareTag("Player"))
         {
-            // Update the Restart position in the PlatformController2DSimple script (on the player) with this objects position 
-			//collision.gameObject.GetComponent<PlatformController>().RestartPosition = this.transform.position;
             GameManager.Instance.RestartPosition = this.transform.position;
         }
     }

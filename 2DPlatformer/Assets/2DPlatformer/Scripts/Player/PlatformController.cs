@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PlatformController2DSimple : MonoBehaviour 
+public class PlatformController : MonoBehaviour 
 {
     public float movementForce = 3f;
     public float jumpForce = 4f;
@@ -30,7 +30,6 @@ public class PlatformController2DSimple : MonoBehaviour
     SpriteRenderer[] allSpriteRenders;
     float horizontalMovement;
     bool facingRight = false;
-    Vector2 restartPosition;
     #endregion
 
     private void OnEnable()
@@ -51,8 +50,6 @@ public class PlatformController2DSimple : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
         allSpriteRenders = GetComponentsInChildren<SpriteRenderer>();
         playerCollider = GetComponent<BoxCollider2D>();
-        // Set the restart position to match the players start position 
-        RestartPosition = transform.position;
        
         GameManager.Instance.UpdatePlayerLives(numberOfPlayerLives);
 	}
@@ -60,7 +57,7 @@ public class PlatformController2DSimple : MonoBehaviour
 	// Update is called once per frame
 	void Update () 
     {
-        groundCollider = Physics2D.OverlapBox(groundCheck.position, groundCheckBox, 0f, groundLayer); //1 << LayerMask.NameToLayer("Ground")
+        groundCollider = Physics2D.OverlapBox(groundCheck.position, groundCheckBox, 0f, groundLayer);
         isGrounded = (bool)groundCollider;
         
         horizontalMovement = Input.GetAxisRaw("Horizontal");
@@ -79,7 +76,6 @@ public class PlatformController2DSimple : MonoBehaviour
 
             if(platformEffector2D)
             {
-                //pf2D.surfaceArc *= -1f;
                 audioSource.PlayOneShot(jumpDownSound);
                 StartCoroutine(StepDownFromPlatform(platformEffector2D));
             }
@@ -145,7 +141,6 @@ public class PlatformController2DSimple : MonoBehaviour
             yield return new WaitForEndOfFrame();
         }
 
-        Debug.Log(isGrounded + " -- " + exitCount);
         _pf2D.surfaceArc = storredSurfaceArc;
     }
 
@@ -169,14 +164,6 @@ public class PlatformController2DSimple : MonoBehaviour
         }
     }
 
-    public Vector2 RestartPosition
-    {
-        set { restartPosition = value; }
-
-        get { return restartPosition; }
-    }
-
-
     IEnumerator PlayerLostLife()
     {
         for (int i = 0; i < allSpriteRenders.Length; i++)
@@ -189,7 +176,7 @@ public class PlatformController2DSimple : MonoBehaviour
 
         yield return new WaitForSeconds(3);
 
-        transform.position = RestartPosition;
+        transform.position = GameManager.Instance.RestartPosition;
 
 		for (int i = 0; i < allSpriteRenders.Length; i++)
 		{
@@ -210,7 +197,7 @@ public class PlatformController2DSimple : MonoBehaviour
 
     private void OnDrawGizmos()
     {
-        if (!this.isActiveAndEnabled)
+        if (!this.isActiveAndEnabled || groundCheck == null)
             return;
 
         //Gizmos.color = isGrounded ? Gizmos.color = Color.green : Gizmos.color = Color.red;
