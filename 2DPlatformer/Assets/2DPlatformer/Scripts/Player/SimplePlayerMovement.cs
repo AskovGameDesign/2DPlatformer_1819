@@ -47,4 +47,5 @@ public class SimplePlayerMovement : MonoBehaviour
         Gizmos.color = gizmoColor;
         Gizmos.DrawCube(groundCheckPosition.position, new Vector3(groundCheckBox.x, groundCheckBox.y, 0f));
     }
+
 }

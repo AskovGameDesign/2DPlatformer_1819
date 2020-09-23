@@ -538,6 +538,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -655,6 +656,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.x
       value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6bc9906e113024ac6b0d3ce3c3e1a6cd,
+        type: 3}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6943274777617912995, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
         type: 3}
@@ -5931,7 +5943,7 @@ SpriteRenderer:
   m_Size: {x: 45.3, y: 3.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &231833490
@@ -6040,6 +6052,17 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Size.x
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6bc9906e113024ac6b0d3ce3c3e1a6cd,
+        type: 3}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6943274777617912995, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
         type: 3}
@@ -6955,6 +6978,22 @@ PrefabInstance:
     - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
         type: 3}
       propertyPath: m_Size.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6bc9906e113024ac6b0d3ce3c3e1a6cd,
+        type: 3}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6943274777617912995, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
@@ -8733,6 +8772,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.591, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8861,6 +8901,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.83823526, g: 0.30201122, b: 0.6237456, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -8938,6 +8979,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.6035079, g: 0.058391023, b: 0.66176474, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -10320,7 +10362,7 @@ SpriteRenderer:
   m_Size: {x: 0.5, y: 0.5}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1148323471
@@ -21041,6 +21083,17 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6bc9906e113024ac6b0d3ce3c3e1a6cd,
+        type: 3}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6943274777617912995, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22190,6 +22243,17 @@ PrefabInstance:
       propertyPath: m_Size.x
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 6bc9906e113024ac6b0d3ce3c3e1a6cd,
+        type: 3}
+    - target: {fileID: 3344424537869329794, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
+        type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6943274777617912995, guid: d25cb2d82a1e74a1896b0ace89ac3d25,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -22788,6 +22852,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -22946,6 +23011,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_RaycastTarget: 0
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -23401,6 +23467,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.46867618, g: 0.1435986, b: 0.6102941, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -23840,7 +23907,7 @@ SpriteRenderer:
   m_Size: {x: 45.3, y: 3.55}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
 --- !u!4 &1871542203
@@ -24016,6 +24083,7 @@ MonoBehaviour:
   m_Material: {fileID: 0}
   m_Color: {r: 0.07439446, g: 0.63235295, b: 0.5169133, a: 1}
   m_RaycastTarget: 1
+  m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
