@@ -4,9 +4,12 @@ using UnityEngine;
 
 public class SimplePlayerMovementTimedHighJump : MonoBehaviour
 {
+    [Header("Movement and Jumping")]
     [SerializeField] private float movementSpeed = 5f;
     [SerializeField] private float jumpForce = 10f;
     [SerializeField] private float jumpTime; // time the player are allowed to jump up
+
+    [Header("Groundcheck")]
     [SerializeField] private Vector2 groundCheckBox = new Vector2(0.6f, 0.2f);
     [SerializeField] private Transform groundCheckPosition;
     [SerializeField] private LayerMask groundLayers;
